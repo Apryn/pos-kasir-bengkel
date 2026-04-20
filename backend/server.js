@@ -83,5 +83,5 @@ if (count.c === 0) {
   console.log('Sample data bengkel seeded - 50+ produk');
 }
 
-const PORT = 3001;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
