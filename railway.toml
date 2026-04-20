@@ -1,6 +1,6 @@
 [build]
-buildCommand = "cd backend && npm install && cd ../frontend && npm install && npm run build"
+buildCommand = "npm run install-all && npm run build"
 
 [deploy]
-startCommand = "cd backend && node server.js"
+startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
