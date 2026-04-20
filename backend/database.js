@@ -1,7 +1,12 @@
 const Database = require('better-sqlite3');
 const path = require('path');
+const fs = require('fs');
 
-const db = new Database(path.join(__dirname, 'pos.db'));
+// Use /app/data for Railway volume, fallback to local
+const dbDir = process.env.RAILWAY_ENVIRONMENT ? '/app/data' : __dirname;
+if (!fs.existsSync(dbDir)) fs.mkdirSync(dbDir, { recursive: true });
+
+const db = new Database(path.join(dbDir, 'pos.db'));
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS products (
