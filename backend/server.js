@@ -12,9 +12,15 @@ app.use('/api/notifications', require('./routes/notifications'));
 
 // Serve frontend build
 const frontendDist = path.join(__dirname, '../frontend/dist');
-app.use(express.static(frontendDist));
-app.get('(.*)', (req, res) => {
-  res.sendFile(path.join(frontendDist, 'index.html'));
+app.use(express.static(frontendDist, { index: 'index.html' }));
+
+// SPA fallback - serve index.html for all non-API routes
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  } else {
+    next();
+  }
 });
 
 // Seed sample data if empty
